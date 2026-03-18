@@ -1,13 +1,38 @@
 // const express = require('express')
 import express from 'express'
 const app = express()
+app.use(express.json())
 
 app.get('/', (req, res) => {
-  res.send('Hello World')
+  res.sendFile("/Users/sfayaz/100x/BACKEND-_FUNDAMENTALS/todo-app/index.html")
 })
 
-app.get('/fayaz', (req, res) => {
-  res.json({query : 'Hello World im Fayaz'})
+app.post('/sum', (req, res) => {
+  const a = parseInt(req.body.n1);
+  const b = parseInt(req.body.n2);
+
+  res.json({ans: a+b})
+})
+
+app.post('/sub', (req, res) => {
+  const a = parseInt(req.body.n1);
+  const b = parseInt(req.body.n2);
+
+  res.json({ans: a-b})
+})
+
+app.post('/mul', (req, res) => {
+  const a = parseInt(req.body.n1);
+  const b = parseInt(req.body.n2);
+
+  res.json({ans: a*b})
+})
+
+app.post('/div', (req, res) => {
+  const a = parseInt(req.body.n1);
+  const b = parseInt(req.body.n2);
+
+  res.json({ans: a/b})
 })
 
 app.listen(3000, () => {
