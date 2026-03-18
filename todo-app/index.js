@@ -4,7 +4,7 @@ const app = express()
 app.use(express.json())
 
 app.get('/', (req, res) => {
-  res.sendFile("/Users/sfayaz/100x/BACKEND-_FUNDAMENTALS/todo-app/index.html")
+  res.sendFile("[YOUR_PATH_FOR_INDEX.HTML]")
 })
 
 app.post('/sum', (req, res) => {
