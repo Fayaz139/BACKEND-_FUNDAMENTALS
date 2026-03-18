@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+</head>
+<body>
+    <script>
+        async function calculate(operation) {
+            const n1 = document.getElementById("num1").value;
+            const n2 = document.getElementById("num2").value;
+
+            try {
+                const response = await fetch(`http://localhost:3000/${operation}`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        n1: n1,
+                        n2: n2
+                    })
+                })
+                const data = await response.json();
+
+                document.getElementById("res").innerText = data.ans;
+                console.log(data)
+
+            } catch (err) {
+                console.log(err);
+            }
+        }
+    </script>
+
+    <input type="text" id="num1">
+    <input type="text" id="num2">
+    <button onclick="calculate('sum')">Sum</button>
+    <button onclick="calculate('sub')">Sub</button>
+    <button onclick="calculate('mul')">Mul</button>
+    <button onclick="calculate('div')">Div</button>
+    <br>
+    <div style="display: flex; gap: 10px; margin-top: 20px;">
+        Result:<div id="res" style="border: 1px solid black; padding: 1px 5px 1px 5px; border-radius: 30%;">000</div>
+    </div>
+</body>
+</html>
