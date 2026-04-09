@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Signup</title>
+</head>
+<body>
+  <h2>Signup</h2>
+
+  <input id="username" placeholder="Username"><br><br>
+  <input id="password" type="password" placeholder="Password"><br><br>
+
+  <button onclick="signup()">Signup</button>
+
+  <p>Already have account? <a href="/signin">Login</a></p>
+
+  <script>
+    async function signup() {
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      const res = await fetch("http://localhost:3000/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ username, password })
+      });
+
+      const data = await res.json();
+      alert(data.message);
+
+      if (res.status === 200) {
+        window.location.href = "/signin";
+      }
+    }
+  </script>
+</body>
+</html>

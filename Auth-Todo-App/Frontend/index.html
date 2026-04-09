@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Todos</title>
+</head>
+<body>
+  <h2>Your Todos</h2>
+
+  <input id="todoInput" placeholder="Enter todo">
+  <button onclick="addTodo()">Add</button>
+
+  <ul id="todoList"></ul>
+
+  <button onclick="logout()">Logout</button>
+
+  <script>
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      window.location.href = "/signin";
+    }
+
+    async function loadTodos() {
+      const res = await fetch("http://localhost:3000/todos", {
+        headers: {
+          token: token   // 👈 matches your backend
+        }
+      });
+
+      const data = await res.json();
+      const list = document.getElementById("todoList");
+      list.innerHTML = "";
+
+      data.todos.forEach(t => {
+        const li = document.createElement("li");
+        li.innerText = t.todo;
+        list.appendChild(li);
+      });
+    }
+
+    async function addTodo() {
+      const todo = document.getElementById("todoInput").value;
+
+      await fetch("http://localhost:3000/todos", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          token: token
+        },
+        body: JSON.stringify({ todo })
+      });
+
+      document.getElementById("todoInput").value = "";
+      loadTodos();
+    }
+
+    function logout() {
+      localStorage.removeItem("token");
+      window.location.href = "/signin";
+    }
+
+    loadTodos();
+  </script>
+</body>
+</html>
