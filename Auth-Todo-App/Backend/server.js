@@ -72,7 +72,7 @@ app.get('/signup', (req, res) => {
 });
 
 app.get('/signin', (req, res) => {
-    // res.sendFile("/Users/sfayaz/100x/BACKEND-_FUNDAMENTALS/Auth-Todo-App/Frontend/signin.html")
+    res.sendFile("/Users/sfayaz/100x/BACKEND-_FUNDAMENTALS/Auth-Todo-App/Frontend/signin.html")
 });
 
 app.listen(3000);
